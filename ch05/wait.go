@@ -9,9 +9,12 @@ import (
 )
 
 func main() {
-    err := WaitForServer(os.Args[1])
-    if err != nil {
-        fmt.Println(err)
+    log.SetPrefix("wait: ")
+    // suppress the date and time log package prints by default
+    log.SetFlags(0)
+
+    if err := WaitForServer(os.Args[1]); err != nil {
+        log.Fatalf("Site is down: %v\n", err)        
     }
 }
 
