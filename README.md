@@ -27,3 +27,31 @@ fmt.Errorf("parsing %s as HTML: %v", url, err)
 ```
 * Because error messages are frequently chained together, message strings should not be capitalized and new lines should be avoided. The resulting errors may be long, but they will be self-contained when found by tools like grep.
 
+* Caveat: Capturing Iteration Variables
+
+```
+var rmdirs []func()
+     for _, d := range tempDirs() {
+         dir := d               // NOTE: necessary!
+         os.MkdirAll(dir, 0755) // creates parent directories too
+         rmdirs = append(rmdirs, func() {
+             os.RemoveAll(dir)
+         })
+}
+     // ...do some work...
+     for _, rmdir := range rmdirs {
+         rmdir() // clean up
+}
+```
+* It's tempting to use a deferred call to f.Close, to close the local file, but this would be subtly wrong because os.Create opens a file for writing, creating it as needed. On many file systems, notably NFS, write errors are not reported immediately but maybe postponed until the file is closed. Failure to check the result of the close operation could cause serious data loss to go unnoticed. However, if both io.Copy and f.Close fail, we should prefer to report the error from io.Copy since it occurred first and is more likely to tell us the root cause.
+
+* It’s go o d practice to assert that the preconditions of a function hold, but this can easily be done to excess. Unless you can provide a more informative error message or detect an error sooner, there is no point asserting a condition that the runtime will check for you.
+
+```     
+func Reset(x *Buffer) {
+     if x == nil {
+         panic("x is nil") // unnecessary!
+     }
+     x.elements = nil
+}
+```
