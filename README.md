@@ -70,3 +70,6 @@ func Reset(x *Buffer) {
 * Go's interfaces are satisfied implicitly, in other words, there is no need to declare all interfaces that a given concrete type satisfies.
 
 * Interface type is an abstract type: it reveals only some of its methods, but does not expose the internal structure.
+
+* Interface types are unusual. Other types are either safely comparable (like basic types and pointers) or not comparable at all (like slices, maps, and functions), but when comparing interface values or aggregate types that contain interface values, we must be aware of the potential for a panic. A similar risk exists when using interfaces as map keys or switch operands. Only compare interface values if you are certain that they contain dynamic values of comparable types.
+
