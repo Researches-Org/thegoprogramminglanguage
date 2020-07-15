@@ -59,10 +59,9 @@ func Reset(x *Buffer) {
 * If all the methods of a named type T have a receiver type of T itself (not *T), it is safe to copy instances of that type; calling any of its methods necessarily makes a copy. For example, time.Duration values are liberally copied, including as arguments to functions. But if any method has a pointer receiver, you should avoid copying instances of T because doing so may violate internal invariants. For example, copying an instance of bytes.Buffer would cause t he original and t he copy to alias (§2.3.2) the same underlying array of bytes. Subsequent method calls would have unpredictable effects.
 
 * In every valid method call expression, exactly one of these three statements is true. 
-
-** Either the receiver argument has the same type as the receiver parameter, for example both have type T or both have type *T.
-** Or the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable.
-** Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value 
+  * Either the receiver argument has the same type as the receiver parameter, for example both have type T or both have type *T.
+  * Or the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable.
+  * Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value 
   
 * The methods of a struct can be promoted to other struct with Composing Types by Struct Embedding
   
