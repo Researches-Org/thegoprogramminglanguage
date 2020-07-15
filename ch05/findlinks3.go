@@ -10,6 +10,7 @@ import (
 
 func main() {
     // Crawl the web breadth-first starting from the command-line arguments.
+    // The process ends when all reachable web pages have been crawled or the memory of the computer is exhausted.
     breadthFirst(crawl, os.Args[1:])
 }
 
