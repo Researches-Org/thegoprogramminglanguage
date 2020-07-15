@@ -63,6 +63,10 @@ func Reset(x *Buffer) {
 ** Either the receiver argument has the same type as the receiver parameter, for example both have type T or both have type *T.
 ** Or the receiver argument is a variable of type T and the receiver parameter has type *T. The compiler implicitly takes the address of the variable.
 ** Or the receiver argument has type *T and the receiver parameter has type T. The compiler implicitly dereferences the receiver, in other words, loads the value 
+  
+* The methods of a struct can be promoted to other struct with Composing Types by Struct Embedding
+  
+* Methods can be declared only on named types (like Point) and pointers to them (*Point), but thanks to embedding , it's possible and sometimes useful for unnamed struct types to have methods too.
 
 * Go's interfaces are satisfied implicitly, in other words, there is no need to declare all interfaces that a given concrete type satisfies.
 
